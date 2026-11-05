@@ -1,0 +1,23 @@
+# Step 1: Verify correction dataset
+python -m utils.correction_dataset
+
+# Step 2: Verify model architectures
+python -m models.correction
+
+# Step 3: Train original correction model
+python train_correction.py --no-augment --save-model checkpoints/correction_noaug.pth --plot-file plots/loss_correction_noaug.png
+python train_correction.py --save-model checkpoints/correction_aug.pth --plot-file plots/loss_correction_aug.png
+
+# Step 4: Evaluate original correction model
+python correct.py --checkpoint checkpoints/correction_noaug.pth
+python correct.py --checkpoint checkpoints/correction_aug.pth
+python evaluate.py
+
+# Step 5: Train modified correction model
+python train_correction.py --modified --no-augment --save-model checkpoints/correction_mod_noaug.pth --plot-file plots/loss_correction_mod_noaug.png
+python train_correction.py --modified --save-model checkpoints/correction_mod_aug.pth --plot-file plots/loss_correction_mod_aug.png
+
+# Evaluate modified correction model
+python correct.py --modified --checkpoint checkpoints/correction_mod_noaug.pth
+python correct.py --modified --checkpoint checkpoints/correction_mod_aug.pth
+python evaluate.py
