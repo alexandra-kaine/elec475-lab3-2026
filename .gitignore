@@ -1,0 +1,15 @@
+
+# Python environment
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Large datasets and model weights
+data/
+checkpoints/
+*.pth
+
+# macOS and archives
+.DS_Store
+*.zip
